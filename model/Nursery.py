@@ -5,9 +5,9 @@ import datetime
 import random
 
 
-class Shop:
-    name = "Детский мир"
-    list_toy = []
+class Nursery:
+    name = "Golden Tiger"
+    list_animal = []
     list_for_issue = []
     list_toy_issued = []
 
@@ -27,8 +27,14 @@ class Shop:
 
         self.view.output_console("Игрушка успешно добавлена в базу", True)
 
-    def get_list_toy(self):
-        self.list_toy = self.ReadWriteBD.read_write_bd("SELECT * FROM `toys_in_shop`", 'r')
+    def get_list_animal(self):
+        self.list_animal = self.ReadWriteBD.read_write_bd("SELECT All_animal.id, name_animal, Date_Birth, "
+                                                          "kind_animal.kind_animal, "
+                                                          "All_animal.Date_Arrival, Date_Departure, Sign_Departure "
+                                                          "FROM All_animal "
+                                                          "INNER JOIN kind_animal "
+                                                          "ON All_animal.kind_animal=kind_animal.id", 'r')
+
 
     def get_list_for_issue(self):
         self.list_for_issue = self.ReadWriteBD.read_write_bd("SELECT id, title_toy, date_of_winning "
@@ -51,16 +57,16 @@ class Shop:
         list_name_toy = []
         list_weights_toy = []
 
-        self.list_toy = self.ReadWriteBD.read_write_bd("SELECT * FROM `toys_in_shop` WHERE amount > 0 ", 'r')
-        if len(self.list_toy) != 0:
-            for row in self.list_toy:
+        self.list_animal = self.ReadWriteBD.read_write_bd("SELECT * FROM `toys_in_shop` WHERE amount > 0 ", 'r')
+        if len(self.list_animal) != 0:
+            for row in self.list_animal:
                 list_name_toy.append(row['title_toy'])
                 list_weights_toy.append(row['frequency'])
 
             name_won_toy = random.choices(list_name_toy, weights=list_weights_toy)[0]
             self.view.output_console(f"Поздравляем! Вы выиграли => {name_won_toy}", True)
 
-            for row in self.list_toy:
+            for row in self.list_animal:
                 if row['title_toy'] == name_won_toy:
                     new_amount = row['amount'] - 1
                     self.ReadWriteBD.read_write_bd(f"UPDATE `toys_in_shop` "
@@ -82,9 +88,9 @@ class Shop:
                                                               "WHERE toy_issued = 1", 'r')
 
     def change_frequency_toy(self):
-        self.get_list_toy()
-        self.view.show_toys_in_shop(self.list_toy)
-        number_toy = Check().check_number_toy(self.list_toy)
+        self.get_list_animal()
+        self.view.show_animal_in_nursery(self.list_animal)
+        number_toy = Check().check_number_toy(self.list_animal)
         new_frequency = Check().check_frequency_toy()
         self.ReadWriteBD.read_write_bd(f"UPDATE `toys_in_shop` "
                                        f"SET frequency = '{new_frequency}'"

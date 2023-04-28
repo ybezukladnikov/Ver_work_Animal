@@ -7,15 +7,22 @@ init(autoreset=True)
 
 class ViewConsole:
 
-    def show_toys_in_shop(self, data):
+    def show_animal_in_nursery(self, data):
         mytable = PrettyTable()
-        mytable.field_names = ["ID", "Название игрушки", "Количество", "Частота выпадения"]
+        mytable.field_names = ["ID", "Name of animal", "Date of Birth", "Kind of animal", "Date of Arrival", "Date of Departure", "Sign Departure"]
         if len(data) == 0:
-            self.output_console("В базе нет игрушек", False)
+            self.output_console("There are no animal in Nursery", False)
         else:
             for row in data:
-                mytable.add_row([row['id'], row['title_toy'], row['amount'], row['frequency']])
-            self.output_console("В базе есть следующие игрушки:", True)
+                mytable.add_row([row['id'],
+                                 row['name_animal'],
+                                 row['Date_Birth'],
+                                 row['kind_animal'],
+                                 row['Date_Arrival'],
+                                 row['Date_Departure'],
+                                 # row['Sign_Departure']])
+                                 'Out' if row['Sign_Departure'] == b'\x01' else 'In'])
+            self.output_console("Animal in Nursery:", True)
             print(mytable)
 
 
