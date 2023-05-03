@@ -19,17 +19,5 @@ class Presenter:
                     self.nursery.add_animal_inDB()
                 case 3:
                     self.nursery.show_list_com_selected_animal()
-
-                # case 4:
-                #     self.nursery.give_toy()
-                # case 5:
-                #     self.nursery.play_toy()
-                # case 6:
-                #     self.nursery.get_list_toy_issued()
-                #     self.view.show_list_toy_issued(self.nursery.list_toy_issued)
-                # case 7:
-                #     self.nursery.change_frequency_toy()
-                #
-                #
-                #
-                #
+                case 4:
+                    self.nursery.teach_animal()

@@ -1,15 +1,13 @@
 from model.ReadWriteBD import ReadWriteBD
 from model.Check import Check
 from view.ViewConsole import ViewConsole
-import datetime
-import random
+
 
 
 class AnimalShelter:
     name = "Golden Tiger"
     list_animal = []
     list_of_command = []
-    # list_toy_issued = []
 
     ReadWriteBD = ReadWriteBD()
     view = ViewConsole()
@@ -53,62 +51,22 @@ class AnimalShelter:
 
         self.view.show_list_command(id_name_animal[1], self.list_of_command)
 
+    def teach_animal(self):
+        self.list_animal = self.ReadWriteBD.read_write_bd("SELECT All_animal.id, name_animal, Date_Birth, "
+                                                          "kind_animal.kind_animal, "
+                                                          "All_animal.Date_Arrival, Date_Departure, Sign_Departure "
+                                                          "FROM All_animal "
+                                                          "INNER JOIN kind_animal "
+                                                          "ON All_animal.kind_animal=kind_animal.id "
+                                                          "WHERE All_animal.Sign_Departure = 0", 'r')
+        self.view.output_console("Which animal do you want to teach?", True)
+        print()
+        id_name_animal = Check().check_sel_id_animal(self.list_animal)
+        id_command = Check().check_id_command()
+        self.ReadWriteBD.read_write_bd(f"INSERT INTO `Connect_Command_animal` (id_animal, id_command) "
+                                       f"VALUES ('{id_name_animal[0]}', '{id_command[0]}');", 'w')
+        self.view.output_console(f"Great. Now \"{id_name_animal[1]}\" can \"{id_command[1]}\"", True)
+        print()
 
-    # def give_toy(self):
-    #     self.get_list_for_issue()
-    #     if not len(self.list_for_issue) == 0:
-    #         id_for_give = self.list_for_issue[0]['id']
-    #         self.ReadWriteBD.read_write_bd(f"UPDATE `toys_for_delivery` "
-    #                                        f"SET toy_issued = '1',"
-    #                                        f"date_issue = '{datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')}'"
-    #                                        f"WHERE id = '{id_for_give}';", 'w')
-    #         self.view.output_console("Игрушка успешно выдана", True)
-    #     else:
-    #         self.view.output_console('Нет игрушек для выдачи', False)
-    #
-    # def play_toy(self):
-    #     list_name_toy = []
-    #     list_weights_toy = []
-    #
-    #     self.list_animal = self.ReadWriteBD.read_write_bd("SELECT * FROM `toys_in_shop` WHERE amount > 0 ", 'r')
-    #     if len(self.list_animal) != 0:
-    #         for row in self.list_animal:
-    #             list_name_toy.append(row['title_toy'])
-    #             list_weights_toy.append(row['frequency'])
-    #
-    #         name_won_toy = random.choices(list_name_toy, weights=list_weights_toy)[0]
-    #         self.view.output_console(f"Поздравляем! Вы выиграли => {name_won_toy}", True)
-    #
-    #         for row in self.list_animal:
-    #             if row['title_toy'] == name_won_toy:
-    #                 new_amount = row['amount'] - 1
-    #                 self.ReadWriteBD.read_write_bd(f"UPDATE `toys_in_shop` "
-    #                                                f"SET amount = '{new_amount}'"
-    #                                                f"WHERE title_toy = '{name_won_toy}';", 'w')
-    #                 break
-    #
-    #         self.ReadWriteBD.read_write_bd(f"INSERT INTO `toys_for_delivery` (title_toy, date_of_winning) "
-    #                                        f"VALUES ('{name_won_toy}', '{datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')}');",
-    #                                        'w')
-    #
-    #
-    #     else:
-    #         self.view.output_console("В базе нет игрушек для розыгрыша", False)
-    #
-    # def get_list_toy_issued(self):
-    #     self.list_toy_issued = self.ReadWriteBD.read_write_bd("SELECT *"
-    #                                                           "FROM `toys_for_delivery`"
-    #                                                           "WHERE toy_issued = 1", 'r')
-    #
-    # def change_frequency_toy(self):
-    #     self.get_list_animal()
-    #     self.view.show_animal_in_nursery(self.list_animal)
-    #     number_toy = Check().check_number_toy(self.list_animal)
-    #     new_frequency = Check().check_frequency_toy()
-    #     self.ReadWriteBD.read_write_bd(f"UPDATE `toys_in_shop` "
-    #                                    f"SET frequency = '{new_frequency}'"
-    #                                    f"WHERE id = '{number_toy}';", 'w')
-    #
-    #
-    #
-    #
+
+

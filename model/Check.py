@@ -11,7 +11,7 @@ class Check:
         while True:
             try:
                 num = int(self.my_view.input_console('Input number item, which want to exicute: '))
-                if 0 <= num <= 3:
+                if 0 <= num <= 4:
                     break
                 else:
                     self.my_view.output_console('There is no item menu! Try again.', False)
@@ -28,18 +28,10 @@ class Check:
             if len(name) > 15 or len(name) == 0:
                 self.my_view.output_console('length is not correct', False)
                 continue
-            # flag = False
-            # for row in ReadWriteBD().read_write_bd("SELECT * FROM `toys_in_shop`", 'r'):
-            #     if name == row['title_toy']:
-            #         flag = True
-            # if flag:
-            #     self.my_view.output_console('Такое имя уже есть в базе', False)
-            #     continue
-
             break
         return name
 
-    #
+
 
     def check_day_birth_animal(self):
         while True:
@@ -52,7 +44,6 @@ class Check:
                 self.my_view.output_console('You input not correct date. Try again.', False)
 
         return date
-
 
     def check_sel_id_animal(self, list_animal):
         id_name = []
@@ -78,21 +69,31 @@ class Check:
 
         return id_name
 
+    def check_id_command(self):
+        id_command = []
+        list_command = ReadWriteBD().read_write_bd("SELECT * FROM `Table_Command`", 'r')
+        while True:
+            self.my_view.show_available_command(list_command)
+            num = self.my_view.input_console('Input ID command(only number): ')
+            try:
+                num_correct = int(num)
+                flag = True
+                for row in list_command:
+                    if num_correct == row['id']:
+                        id_command.append(num_correct)
+                        id_command.append(row['name_command'])
+                        flag = False
+                if flag:
+                    self.my_view.output_console('There is no such ID in the database', False)
+                    continue
+                else:
+                    break
 
-    # def check_amount_toy(self):
-    #     while True:
-    #         try:
-    #             num = int(self.my_view.input_console('Введите количество игрушек: '))
-    #             if num >= 0:
-    #                 break
-    #             else:
-    #                 self.my_view.output_console('Число не может быть отрицательным', False)
-    #                 continue
-    #         except ValueError:
-    #             self.my_view.output_console('Вы ввели некорректное число! Попробуйте снова.', False)
-    #
-    #     return num
-    #
+            except ValueError:
+                self.my_view.output_console('You input no correct number! Try again.', False)
+
+        return id_command
+
     def check_kind_animal(self):
         dict_kind_animal = ReadWriteBD().read_write_bd("SELECT * FROM `kind_animal`", 'r')
         length = len(dict_kind_animal)
@@ -114,31 +115,3 @@ class Check:
 
         return num
 
-    # def check_frequency_toy(self):
-    #     while True:
-    #         try:
-    #             num = int(self.my_view.input_console('Введите частоту выпадения игрушки: '))
-    #             if 0< num < 100:
-    #                 break
-    #             else:
-    #                 self.my_view.output_console('Число должно быть в диапозоне от 0 до 100', False)
-    #                 continue
-    #         except ValueError:
-    #             self.my_view.output_console('Вы ввели некорректное число! Попробуйте снова.', False)
-    #
-    #     return num
-    #
-    # def check_number_toy(self, data):
-    #     count_toy = len(data)
-    #     while True:
-    #         try:
-    #             num = int(self.my_view.input_console('Введите номер игрушки для изменения частоты: '))
-    #             if 0< num <= count_toy:
-    #                 break
-    #             else:
-    #                 self.my_view.output_console('Игрушка с таким номером отсутствует', False)
-    #                 continue
-    #         except ValueError:
-    #             self.my_view.output_console('Вы ввели некорректное число! Попробуйте снова.', False)
-    #
-    #     return num

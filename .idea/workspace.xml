@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="089f80c0-77ed-47b8-8b20-87b3fceb4b2c" name="Changes" comment="add feature: add animal">
+    <list default="true" id="089f80c0-77ed-47b8-8b20-87b3fceb4b2c" name="Changes" comment="add feature: show command animal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/AnimalShelter.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/AnimalShelter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/Check.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Check.py" afterDir="false" />
@@ -89,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683021152643</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add feature: show command animal">
+      <created>1683118661526</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683118661526</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,6 +114,7 @@
     <MESSAGE value="Init commit" />
     <MESSAGE value="start work" />
     <MESSAGE value="add feature: add animal" />
-    <option name="LAST_COMMIT_MESSAGE" value="add feature: add animal" />
+    <MESSAGE value="add feature: show command animal" />
+    <option name="LAST_COMMIT_MESSAGE" value="add feature: show command animal" />
   </component>
 </project>

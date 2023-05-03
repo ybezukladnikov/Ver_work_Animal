@@ -37,36 +37,23 @@ class ViewConsole:
                 print(enum + 1, row['name_command'])
             print()
 
-    # def show_list_for_issue(self, data):
-    #     mytable = PrettyTable()
-    #     mytable.field_names = ["ID", "Название игрушки", "Дата выигрыша"]
-    #     if len(data) == 0:
-    #         self.output_console("Список выдачи пуст", False)
-    #     else:
-    #         for num, row in enumerate(data):
-    #             mytable.add_row([num+1, row['title_toy'], row['date_of_winning']])
-    #         self.output_console("Игрушки к выдаче:", True)
-    #         print(mytable)
-    #
-    # def show_list_toy_issued(self, data):
-    #     mytable = PrettyTable()
-    #     mytable.field_names = ["ID", "Название игрушки", "Дата выигрыша", "Дата выдачи"]
-    #     if len(data) == 0:
-    #         self.output_console("Все игрушки выданы", False)
-    #     else:
-    #         for num, row in enumerate(data):
-    #             mytable.add_row([num+1, row['title_toy'], row['date_of_winning'], row['date_issue']])
-    #         self.output_console("Список выданных игрушек:", True)
-    #         print(mytable)
-    #
-    #
-    #
+    def show_available_command(self, data):
+        mytable = PrettyTable()
+        mytable.field_names = ["ID", "Name of command"]
+        if len(data) == 0:
+            self.output_console("There are no command", False)
+        else:
+            for row in data:
+                mytable.add_row([row['id'], row['name_command']])
+
+            self.output_console("List available command.:", True)
+            print(mytable)
+
     def show_main_menu(self):
 
         for operNum, operDesc in Menu().MENU_ITEMS.items():
             print(f"{operNum}. {operDesc}")
-    #
-    #
+
     def input_console(self,text):
         input_text = input(Fore.CYAN + text)
         return input_text
