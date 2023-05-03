@@ -8,7 +8,7 @@ import random
 class AnimalShelter:
     name = "Golden Tiger"
     list_animal = []
-    # list_for_issue = []
+    list_of_command = []
     # list_toy_issued = []
 
     ReadWriteBD = ReadWriteBD()
@@ -36,11 +36,24 @@ class AnimalShelter:
                                                           "ON All_animal.kind_animal=kind_animal.id", 'r')
 
 
-    # def get_list_for_issue(self):
-    #     self.list_for_issue = self.ReadWriteBD.read_write_bd("SELECT id, title_toy, date_of_winning "
-    #                                                          "FROM `toys_for_delivery`"
-    #                                                          "WHERE toy_issued = 0", 'r')
-    #
+    def show_list_com_selected_animal(self):
+        self.list_animal = self.ReadWriteBD.read_write_bd("SELECT All_animal.id, name_animal, Date_Birth, "
+                                                          "kind_animal.kind_animal, "
+                                                          "All_animal.Date_Arrival, Date_Departure, Sign_Departure "
+                                                          "FROM All_animal "
+                                                          "INNER JOIN kind_animal "
+                                                          "ON All_animal.kind_animal=kind_animal.id", 'r')
+
+        id_name_animal = Check().check_sel_id_animal(self.list_animal)
+        self.list_of_command = self.ReadWriteBD.read_write_bd(f"SELECT Table_Command.name_command "
+                                                             f"FROM Table_Command "
+                                                             f"INNER JOIN Connect_Command_animal "
+                                                             f"ON Table_Command.id=Connect_Command_animal.id_command "
+                                                             f"WHERE id_animal = {id_name_animal[0]}", 'r')
+
+        self.view.show_list_command(id_name_animal[1], self.list_of_command)
+
+
     # def give_toy(self):
     #     self.get_list_for_issue()
     #     if not len(self.list_for_issue) == 0:

@@ -26,6 +26,16 @@ class ViewConsole:
             self.output_console("Animal in AnimalShelter:", True)
             print(mytable)
 
+    def show_list_command(self, name, list_com):
+        if len(list_com) == 0:
+            self.output_console(f"An animal named \"{name}\" still can't do anything", False)
+            print()
+        else:
+            self.output_console(f"An animal named \"{name}\" can do:", True)
+            print()
+            for enum, row in enumerate(list_com):
+                print(enum + 1, row['name_command'])
+            print()
 
     # def show_list_for_issue(self, data):
     #     mytable = PrettyTable()

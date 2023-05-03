@@ -11,7 +11,7 @@ class Check:
         while True:
             try:
                 num = int(self.my_view.input_console('Input number item, which want to exicute: '))
-                if 0 <= num <= 2:
+                if 0 <= num <= 3:
                     break
                 else:
                     self.my_view.output_console('There is no item menu! Try again.', False)
@@ -52,6 +52,32 @@ class Check:
                 self.my_view.output_console('You input not correct date. Try again.', False)
 
         return date
+
+
+    def check_sel_id_animal(self, list_animal):
+        id_name = []
+        while True:
+            self.my_view.show_animal_in_nursery(list_animal)
+            num = self.my_view.input_console('Input ID animal(only number): ')
+            try:
+                num_correct = int(num)
+                flag = True
+                for row in list_animal:
+                    if num_correct == row['id']:
+                        id_name.append(num_correct)
+                        id_name.append(row['name_animal'])
+                        flag = False
+                if flag:
+                    self.my_view.output_console('There is no such ID in the database', False)
+                    continue
+                else:
+                    break
+
+            except ValueError:
+                self.my_view.output_console('You input no correct number! Try again.', False)
+
+        return id_name
+
 
     # def check_amount_toy(self):
     #     while True:
